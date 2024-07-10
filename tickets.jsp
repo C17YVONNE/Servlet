@@ -1,43 +1,50 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.List" %>
-<%@ page import="controller.Ticket" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>利用可能なチケット</title>
+    <title>Available Tickets</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-5">利用可能なチケット</h1>
+        <h1 class="mt-5">Available Tickets</h1>
+        <c:if test="${not empty message}">
+            <div class="alert alert-info">${message}</div>
+        </c:if>
         <table class="table table-striped mt-3">
             <thead>
                 <tr>
-                    <th scope="col">イベント名</th>
-                    <th scope="col">日付</th>
-                    <th scope="col">利用可能な座席数</th>
+                    <th scope="col">Event</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Available Seats</th>
                 </tr>
             </thead>
             <tbody>
-                 <%
-                List tickets = (java.util.List) request.getAttribute("tickets");
-                                    if (tickets != null) {
-                                        for (Object obj : tickets) {
-                                            Ticket ticket = (Ticket) obj;
-                %>
+                <c:forEach var="ticket" items="${tickets}">
                     <tr>
-                        <td><%= ticket.getEvent() %></td>
-                        <td><%= ticket.getDate() %></td>
-                        <td><%= ticket.getAvailableSeats() %></td>
+                        <td>${ticket.event}</td>
+                        <td>${ticket.date}</td>
+                        <td>${ticket.availableSeats}</td>
                     </tr>
-                <%
-                        }
-                    }
-                %>
+                </c:forEach>
             </tbody>
         </table>
+        <h2 class="mt-5">Book Tickets</h2>
+        <form method="post" action="tickets">
+            <div class="form-group">
+                <label for="event">Event</label>
+                <input type="text" class="form-control" id="event" name="event" required>
+            </div>
+            <div class="form-group">
+                <label for="seats">Seats</label>
+                <input type="number" class="form-control" id="seats" name="seats" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Book</button>
+        </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
