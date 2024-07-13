@@ -62,9 +62,9 @@ public class TicketServlet extends HttpServlet {
 		if (ticket != null && ticket.getAvailableSeats() >= seats) {
 			ticket.setAvailableSeats(ticket.getAvailableSeats() - seats);
 			BookingHistory.addBooking(username, new Ticket(event, ticket.getDate(), seats));
-			request.setAttribute("message", "予約が成功しました！");
+			session.setAttribute("message", "予約が成功しました！");
 		} else {
-			request.setAttribute("message", "座席が不足しています。");
+			session.setAttribute("message", "座席が不足しています。");
 		}
 
 		request.setAttribute("tickets", tickets);

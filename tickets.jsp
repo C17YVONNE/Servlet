@@ -46,6 +46,7 @@
             <button type="submit" class="btn btn-primary" style="margin-right: 50px;">Book</button>
             <a href="history" class="btn btn-primary">Booking History</a>
         </form>
+        <a href="logout" class="btn btn-secondary mt-3">Logout</a>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
